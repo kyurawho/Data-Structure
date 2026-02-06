@@ -11,5 +11,6 @@ else/
 *.docx
 *.zip
 *.rar
+*.exe
 .DS_Store
 Thumbs.db
