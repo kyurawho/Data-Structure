@@ -64,6 +64,10 @@ void push(int id, int ink, int p){
 			curr = curr->next;
 		}
 		
+		while(curr->next && curr->next->p == p){
+			curr = curr->next;
+		}
+		
 		if(curr == head){
 			node->next = head;
 			head = node;
@@ -78,7 +82,7 @@ void push(int id, int ink, int p){
 		curr->next = node;
 	}
 }
-
+	
 void display(int n){
 	curr = head;
 	
