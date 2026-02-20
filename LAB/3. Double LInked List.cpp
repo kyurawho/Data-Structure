@@ -59,7 +59,7 @@ void pushMid(int value){
   if(head == NULL || value <= head->value){ //smaller than equal
     //if the list is empty or new node must be a head
     pushHead(value);
-  }else if(value >= tail->value){ //grater than equal
+  }else if(value >= tail->value){ //greater than equal
     //if new node must be a tail
     pushTail(value);
   }else{
@@ -88,10 +88,12 @@ void popHead(){
   }
   
   Node* temp = head; //save the head for temporary
-  head = head->next; //set head to the next node
-  head->prev = NULL; //set head prev to NUll, because head->prev should be always NULL
-  
-  if(head == NULL) tail = NULL; //if the list become empty, set tail to NULL
+  if (head == tail) {
+    head = tail = NULL;
+  } else {
+    head = head->next; //set head to the next node
+    head->prev = NULL; //set head prev to NUll, because head->prev should be always NULL
+  }
   free(temp); //free the head to avoid memory leaking
 }
 
@@ -101,16 +103,14 @@ void popTail(){
     return;
   }
   
-  if(head == tail){ //if there is only 1 node
-    free(head); //free the head to avoid memory leaking
-    head = tail = NULL; //set head and tail to NULL
-    return;
-  }
-  
   Node* temp = tail;
-  tail = tail->prev;
+  if (head == tail) {
+    head = tail = NULL;
+  } else {
+    tail = tail->prev;
+    tail->next = NULL; //update the pointer to NULL (cus this is tail AND ALWAYS POINT TO NULL)
+  }
   free(temp); //free the tail to avoid memory leaking
-  tail->next = NULL; //update the pointer to NULL (cus this is tail AND ALWAYS POINT TO NULL);
 }
 
 void popMid(int value){
